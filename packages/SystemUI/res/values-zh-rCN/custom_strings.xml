@@ -35,4 +35,13 @@
 
     <!-- Status bar -->
     <string name="status_bar_icons_title">状态栏图标</string>
+
+    <!-- Name of the roaming status bar icon. -->
+    <string name="status_bar_roaming">漫游指示器</string>
+
+    <!-- Name of the HD calling status bar icon. -->
+    <string name="status_bar_hd_calling">HD 通话 (VoLTE/VoNR)</string>
+
+    <!-- Name of the VoWiFi status bar icon. -->
+    <string name="status_bar_vowifi">Wi-Fi 通话 (VoWiFi)</string>
 </resources>
