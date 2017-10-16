@@ -172,6 +172,7 @@ import com.android.systemui.statusbar.policy.UserInfoControllerImpl;
 import com.android.systemui.statusbar.policy.UserSwitcherController;
 import com.android.systemui.statusbar.window.StatusBarWindowController;
 import com.android.systemui.statusbar.window.StatusBarWindowStateController;
+import com.android.systemui.tuner.TunerService;
 import com.android.systemui.util.EventLog;
 import com.android.systemui.util.FakeEventLog;
 import com.android.systemui.util.WallpaperController;
@@ -316,6 +317,7 @@ public class CentralSurfacesImplTest extends SysuiTestCase {
     @Mock IPowerManager mPowerManagerService;
     @Mock ActivityStarter mActivityStarter;
     @Mock private WindowRootViewVisibilityInteractor mWindowRootViewVisibilityInteractor;
+    @Mock TunerService mTunerService;
 
     private ShadeController mShadeController;
     private final FakeSystemClock mFakeSystemClock = new FakeSystemClock();
@@ -560,7 +562,8 @@ public class CentralSurfacesImplTest extends SysuiTestCase {
                 mUserTracker,
                 () -> mFingerprintManager,
                 mActivityStarter,
-                mSceneContainerFlags
+                mSceneContainerFlags,
+                mTunerService
         );
         mScreenLifecycle.addObserver(mCentralSurfaces.mScreenObserver);
         mCentralSurfaces.initShadeVisibilityListener();
