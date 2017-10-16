@@ -341,4 +341,8 @@ public interface CentralSurfaces extends Dumpable, LifecycleOwner {
     GameSpaceManager getGameSpaceManager();
 
     void setBlockedGesturalNavigation(boolean blocked);
+
+    void brightnessControl(MotionEvent event);
+
+    void onBrightnessChanged(boolean upOrCancel);
 }
