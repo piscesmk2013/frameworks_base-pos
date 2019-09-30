@@ -146,4 +146,8 @@
 
     <!-- Whether Pixel props is enabled -->
     <java-symbol type="bool" name="config_enablePixelProps" />
+
+    <!-- Alert slider -->
+    <java-symbol type="bool" name="config_hasAlertSlider" />
+    <java-symbol type="integer" name="config_alertSliderLocation" />
 </resources>
