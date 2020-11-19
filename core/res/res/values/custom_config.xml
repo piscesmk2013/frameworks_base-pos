@@ -150,4 +150,13 @@
         <item>com.android.shell</item>
         <item>com.android.frameworks.wmtests</item>
     </string-array>
+
+    <!-- Device model (Build.MODEL) to spoof for netflix, if not empty -->
+    <string name="config_netflixSpoofModel" translatable="false"></string>
+
+    <!-- Build fingerprint from the stock ROM -->
+    <string name="config_stockFingerprint" translatable="false"></string>
+
+    <!-- Whether Pixel props is enabled -->
+    <bool name="config_enablePixelProps">true</bool>
 </resources>
