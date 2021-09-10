@@ -44,4 +44,9 @@
 
     <!-- Name of the VoWiFi status bar icon. -->
     <string name="status_bar_vowifi">Wi-Fi 通话 (VoWiFi)</string>
+
+    <!-- Data usage info in QS footer -->
+    <string name="usage_data">当天</string>
+    <string name="usage_data_default_suffix">数据</string>
+    <string name="usage_wifi_default_suffix">WiFi</string>
 </resources>
