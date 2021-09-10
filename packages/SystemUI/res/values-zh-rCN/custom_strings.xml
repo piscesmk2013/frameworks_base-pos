@@ -45,4 +45,8 @@
     <string name="status_bar_roaming">Roaming indicator</string>
     <!-- Name of the data saver status bar icon. -->
     <string name="status_bar_data_saver">Data saver</string>
+    <!-- Data usage info in QS footer -->
+    <string name="usage_data">当天</string>
+    <string name="usage_data_default_suffix">数据</string>
+    <string name="usage_wifi_default_suffix">WiFi</string>
 </resources>
