@@ -339,4 +339,6 @@ public interface CentralSurfaces extends Dumpable, LifecycleOwner {
             ExpandableNotificationRow associatedView);
 
     GameSpaceManager getGameSpaceManager();
+
+    void setBlockedGesturalNavigation(boolean blocked);
 }
