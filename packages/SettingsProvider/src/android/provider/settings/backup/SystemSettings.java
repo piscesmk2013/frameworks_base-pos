@@ -120,7 +120,8 @@ public class SystemSettings {
                 Settings.System.RINGTONE_VIBRATION_PATTERN,
                 Settings.System.CUSTOM_RINGTONE_VIBRATION_PATTERN,
                 Settings.System.AMBIENT_NOTIFICATION_LIGHT,
-                Settings.System.AMBIENT_NOTIFICATION_LIGHT_AUTOMATIC
+                Settings.System.AMBIENT_NOTIFICATION_LIGHT_AUTOMATIC,
+                Settings.System.QS_SHOW_BATTERY_ESTIMATE
         ));
         if (Flags.backUpSmoothDisplayAndForcePeakRefreshRate()) {
             settings.add(Settings.System.PEAK_REFRESH_RATE);
