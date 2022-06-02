@@ -63,4 +63,6 @@
     <string name="charging_control_notification_content_target_reached">电池已充满</string>
     <!-- Pocket Lock -->
     <string name="pocket_lock_message_long_press">按住电源键解锁</string>
+    <!-- Lock gesture -->
+    <string name="gesture_locked_warning">再次滑动以解锁手势</string>
 </resources>
