@@ -20729,4 +20729,11 @@ public class ActivityManagerService extends IActivityManager.Stub
         }
         mOomAdjuster.mCachedAppOptimizer.binderError(debugPid, app, code, flags, err);
     }
+
+    boolean isBackgroundRestricted(ApplicationInfo info) {
+        return mActivityTaskManager.mAppStandbyInternal.isStrictStandbyPolicyEnabled() &&
+                getAppOpsManager().checkOpNoThrow(
+                        AppOpsManager.OP_RUN_ANY_IN_BACKGROUND,
+                        info.uid, info.packageName) != AppOpsManager.MODE_ALLOWED;
+    }
 }
