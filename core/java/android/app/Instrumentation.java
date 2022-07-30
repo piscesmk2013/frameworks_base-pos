@@ -73,6 +73,7 @@ import java.util.StringJoiner;
 import java.util.concurrent.TimeoutException;
 
 import com.android.internal.util.custom.GamesPropsUtils;
+import com.android.internal.util.custom.MeizuPropsUtils;
 
 /**
  * Base class for implementing application instrumentation code.  When running
@@ -1349,6 +1350,7 @@ public class Instrumentation {
         app.attach(context);
         PropImitationHooks.setProps(context);
         GamesPropsUtils.setProps(app);
+        MeizuPropsUtils.setProps(app);
         return app;
     }
     
@@ -1368,6 +1370,7 @@ public class Instrumentation {
         app.attach(context);
         PropImitationHooks.setProps(context);
         GamesPropsUtils.setProps(app);
+        MeizuPropsUtils.setProps(app);
         return app;
     }
 
