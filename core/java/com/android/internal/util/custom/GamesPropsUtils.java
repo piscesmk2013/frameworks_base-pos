@@ -67,7 +67,10 @@ public class GamesPropsUtils {
     private static final Map<String, Object> propsToChangeOP9P;
     private static final String[] packagesToChangeOP9P = {
             "com.epicgames.fortnite",
-            "com.epicgames.portal"
+            "com.epicgames.portal",
+            "com.mobile.legends",
+            "com.tencent.lolm",
+            "com.tencent.tmgp.sgame"
     };
 
     private static final Map<String, Object> propsToChangeF4;
@@ -78,10 +81,8 @@ public class GamesPropsUtils {
 
     private static final Map<String, Object> propsToChange11T;
     private static final String[] packagesToChange11T = {
-    	    "com.tencent.tmgp.sgame",
             "com.ea.gp.apexlegendsmobilefps",
             "com.levelinfinite.hotta.gp",
-            "com.mobile.legends",
             "com.vng.mlbbvn"
     };
 
