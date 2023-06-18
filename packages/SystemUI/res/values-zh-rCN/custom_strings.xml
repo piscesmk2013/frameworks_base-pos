@@ -32,4 +32,7 @@
     <string name="global_action_restart_ui">系统界面</string>
     <!-- Text while recognizing face -->
     <string name="face_unlock_recognizing">正在识别人脸...</string>
+
+    <!-- Status bar -->
+    <string name="status_bar_icons_title">状态栏图标</string>
 </resources>

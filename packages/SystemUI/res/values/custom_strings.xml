@@ -64,4 +64,6 @@
     <!-- A toast message shown after successfully deleting a screen recording [CHAR LIMIT=NONE] -->
     <string name="screenrecord_delete_description">Screen recording deleted</string>
 
+    <!-- Status bar -->
+    <string name="status_bar_icons_title">Status bar icons</string>
 </resources>
