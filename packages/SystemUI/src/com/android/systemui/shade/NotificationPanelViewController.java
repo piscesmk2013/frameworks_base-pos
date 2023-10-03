@@ -17,6 +17,8 @@
 package com.android.systemui.shade;
 
 import static android.app.StatusBarManager.WINDOW_STATE_SHOWING;
+import static android.content.pm.ApplicationInfo.FLAG_SYSTEM;
+import static android.content.pm.ApplicationInfo.FLAG_UPDATED_SYSTEM_APP;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
@@ -58,6 +60,8 @@ import android.app.StatusBarManager;
 import android.content.Context;
 import android.content.ContentResolver;
 import android.content.res.Resources;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.database.ContentObserver;
@@ -78,6 +82,7 @@ import android.os.VibrationEffect;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
 import android.text.TextUtils;
+import android.util.IconDrawableFactory;
 import android.util.IndentingPrintWriter;
 import android.util.Log;
 import android.util.MathUtils;
@@ -5382,6 +5387,31 @@ public final class NotificationPanelViewController implements ShadeSurface, Dump
     }
 
     /* reTicker */
+    /**
+     * Get badged app icon if necessary, similar as used in the Settings UI.
+     * @return The icon to use
+     */
+    public static Drawable getBadgedIcon(Context context, String packageName,
+            int userId) {
+        try {
+            final PackageManager packageManager = context.getPackageManager();
+            final ApplicationInfo appInfo = packageManager.getApplicationInfoAsUser(
+                    packageName,
+                    PackageManager.ApplicationInfoFlags.of(PackageManager.GET_META_DATA),
+                    userId);
+            if (appInfo == null) {
+                return null;
+            }
+
+            IconDrawableFactory iconFactory = IconDrawableFactory.newInstance(context);
+            return iconFactory.getBadgedIcon(appInfo, UserHandle.getUserId(appInfo.uid));
+        } catch (NameNotFoundException e) {
+            Log.d(TAG, "Couldn't find application info for packageName=" + packageName
+                    + " userId=" + userId);
+            return null;
+        }
+    }
+
     public void reTickerView(boolean visibility) {
         if (!mReTickerStatus || mReTickerLandscapeOnly && !isLandscape()) return;
         if (visibility && mReTickerComeback.getVisibility() == View.VISIBLE) {
@@ -5390,18 +5420,16 @@ public final class NotificationPanelViewController implements ShadeSurface, Dump
         String reTickerContent;
         if (visibility && getExpandedFraction() != 1) {
             mNotificationStackScroller.setVisibility(View.GONE);
-            StatusBarNotification sbn = mHeadsUpManager.getTopEntry().getRow().getEntry().getSbn();
+            StatusBarNotification sbn
+                = mHeadsUpManager.getTopEntry()
+                        .getRow().getEntry().getSbn();
             Notification notification = sbn.getNotification();
             String pkgname = sbn.getPackageName();
-            Drawable icon = null;
-            try {
-                if ("com.android.systemui".equals(pkgname)) {
-                    icon = mView.getContext().getDrawable(notification.icon);
-                } else {
-                    icon = mView.getContext().getPackageManager().getApplicationIcon(pkgname);
-                }
-            } catch (NameNotFoundException e) {
-            }
+            Drawable icon = getBadgedIcon(
+                        mView.getContext(),
+                        pkgname,
+                        sbn.getUser().getIdentifier()
+                    );
 
             String content = notification.extras.getString("android.text");
             if (TextUtils.isEmpty(content)) return;
