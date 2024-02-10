@@ -1357,7 +1357,7 @@ public class Instrumentation {
         app.attach(context);
         AttestationHooks.setProps(context);
         PixelPropsUtils.setProps(context);
-        GamesPropsUtils.setProps(app);
+        GamesPropsUtils.setProps(context);
         return app;
     }
     
@@ -1377,7 +1377,7 @@ public class Instrumentation {
         app.attach(context);
         AttestationHooks.setProps(context);
         PixelPropsUtils.setProps(context);
-        GamesPropsUtils.setProps(app);
+        GamesPropsUtils.setProps(context);
         return app;
     }
 

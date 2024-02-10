@@ -16,7 +16,7 @@
 
 package com.android.internal.util.custom;
 
-import android.app.Application;
+import android.content.Context;
 import android.os.Build;
 import android.util.Log;
 
@@ -81,8 +81,8 @@ public class GamesPropsUtils {
         propsToChange11T.put("MANUFACTURER", "Xiaomi");
     }
 
-    public static void setProps(Application app) {
-        final String packageName = app.getPackageName();
+    public static void setProps(Context context) {
+        final String packageName = context.getPackageName();
 
         if (packageName == null || packageName.isEmpty()) {
             return;
