@@ -52,9 +52,6 @@
     <!-- The list of package IDs that are allowed to skip camera high frame rate checks. -->
     <string-array name="config_cameraHFRPrivAppList" translatable="false" />
 
-    <!-- Whether device has an alert slider. -->
-    <bool name="config_hasAlertSlider">false</bool>
-
     <!-- Whether charging control should be enabled by default -->
     <bool name="config_chargingControlEnabled">false</bool>
 
