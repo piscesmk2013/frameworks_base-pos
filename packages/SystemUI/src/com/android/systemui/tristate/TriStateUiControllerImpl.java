@@ -492,7 +492,7 @@ public class TriStateUiControllerImpl implements ConfigurationListener, TriState
         // Todo: Add some logic to update the theme only when a new theme is applied
         mIconColor = getAttrColor(android.R.attr.colorAccent);
         mTextColor = getAttrColor(android.R.attr.textColorPrimary);
-        mBackgroundColor = getAttrColor(android.R.attr.colorPrimary);
+        mBackgroundColor = getAttrColor(com.android.internal.R.attr.colorSurface);
         mDialogView.setBackgroundTintList(ColorStateList.valueOf(mBackgroundColor));
         mTriStateIcon.setColorFilter(mIconColor);
         mTriStateText.setTextColor(mTextColor);
