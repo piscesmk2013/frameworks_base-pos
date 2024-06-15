@@ -34,27 +34,32 @@ public class MeizuPropsUtils {
 
     private static final String DISGUISE_PROPS_FOR_MUSIC_APP = "persist.sys.disguise_props_for_music_app";
 
-    private static final Map<String, Object> propsToChange;
-
-    private static final String[] packagesToChange = {
-        "com.hihonor.cloudmusic",
-        "com.netease.cloudmusic",
-        "com.tencent.qqmusic",
-        "com.kugou.android",
-        "com.kugou.android.lite",
-        "cmccwm.mobilemusic",
-        "cn.kuwo.player",
-        "com.meizu.media.music"
-    };
+    private static final Map<String, Map<String, Object>> propsToChange = new HashMap<>();
+    private static final Map<String, String[]> packagesToChange = new HashMap<>();
 
     static {
-        propsToChange = new HashMap<>();
-        propsToChange.put("BRAND", "meizu");
-        propsToChange.put("MANUFACTURER", "Meizu");
-        propsToChange.put("DEVICE", "m1892");
-        propsToChange.put("DISPLAY","Flyme");
-        propsToChange.put("PRODUCT","meizu_16thPlus_CN");
-        propsToChange.put("MODEL", "meizu 16th Plus");
+        propsToChange.put("MeiZu", createMeiZuProps());
+        packagesToChange.put("MeiZu", new String[]{
+                "com.hihonor.cloudmusic",
+		"com.netease.cloudmusic",
+		"com.tencent.qqmusic",
+		"com.kugou.android",
+		"com.kugou.android.lite",
+		"cmccwm.mobilemusic",
+		"cn.kuwo.player",
+		"com.meizu.media.music"
+        });
+    }
+
+    private static Map<String, Object> createMeiZuProps() {
+        Map<String, Object> props = new HashMap<>();
+        props.put("BRAND", "meizu");
+        props.put("MANUFACTURER", "Meizu");
+        props.put("DEVICE", "m1892");
+        props.put("DISPLAY","Flyme");
+        props.put("PRODUCT","meizu_16thPlus_CN");
+        props.put("MODEL", "meizu 16th Plus");
+        return props;
     }
 
     public static void setProps(Context context) {
@@ -63,26 +68,28 @@ public class MeizuPropsUtils {
         }
 
         final String packageName = context.getPackageName();
-        if (packageName == null){
+        if (packageName == null || packageName.isEmpty()){
             return;
         }
-        if (Arrays.asList(packagesToChange).contains(packageName)){
-            if (DEBUG){
-                Log.d(TAG, "Defining props for: " + packageName);
-            }
-            for (Map.Entry<String, Object> prop : propsToChange.entrySet()) {
-                String key = prop.getKey();
-                Object value = prop.getValue();
-                setPropValue(key, value);
+
+        for (String device : packagesToChange.keySet()) {
+            String[] packages = packagesToChange.get(device);
+            if (Arrays.asList(packages).contains(packageName)) {
+                dlog("Defining props for: " + packageName);
+                Map<String, Object> props = propsToChange.get(device);
+                for (Map.Entry<String, Object> prop : props.entrySet()) {
+                    String key = prop.getKey();
+                    Object value = prop.getValue();
+                    setPropValue(key, value);
+                }
+                break;
             }
         }
     }
 
     private static void setPropValue(String key, Object value){
         try {
-            if (DEBUG){
-                Log.d(TAG, "Defining prop " + key + " to " + value.toString());
-            }
+            dlog("Defining prop " + key + " to " + value.toString());
             Field field = Build.class.getDeclaredField(key);
             field.setAccessible(true);
             field.set(null, value);
@@ -90,5 +97,9 @@ public class MeizuPropsUtils {
         } catch (NoSuchFieldException | IllegalAccessException e) {
             Log.e(TAG, "Failed to set prop " + key, e);
         }
+    }
+
+    public static void dlog(String msg) {
+        if (DEBUG) Log.d(TAG, msg);
     }
 }
