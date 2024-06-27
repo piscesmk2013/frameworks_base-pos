@@ -18,6 +18,7 @@ package com.android.internal.util.custom;
 
 import android.content.Context;
 import android.os.Build;
+import android.os.SystemProperties;
 import android.util.Log;
 
 import java.util.Arrays;
@@ -214,7 +215,8 @@ public class GamesPropsUtils {
     public static void setProps(Context context) {
         final String packageName = context.getPackageName();
 
-        if (packageName == null || packageName.isEmpty()) {
+        if (packageName == null || packageName.isEmpty()
+           || !SystemProperties.getBoolean("persist.sys.pixelprops.games", true)) {
             return;
         }
 

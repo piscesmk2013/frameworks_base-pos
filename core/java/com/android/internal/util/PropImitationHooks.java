@@ -192,7 +192,8 @@ public class PropImitationHooks {
         sProcessName = processName;
         sIsGms = packageName.equals(PACKAGE_GMS) && processName.equals(PROCESS_GMS_UNSTABLE);
         sIsFinsky = packageName.equals(PACKAGE_FINSKY);
-        sIsPhotos = packageName.equals(PACKAGE_GPHOTOS);
+        sIsPhotos = packageName.equals(PACKAGE_GPHOTOS)
+		&& SystemProperties.getBoolean("persist.sys.pixelprops.gphotos", true);
 
         /* Set certified properties for GMSCore
          * Set stock fingerprint for ARCore
