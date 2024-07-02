@@ -17,10 +17,8 @@
 package com.android.internal.util;
 
 import android.app.Application;
-import android.content.Context;
 import android.content.res.Resources;
 import android.os.Build;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.android.internal.R;
@@ -33,8 +31,8 @@ public class PropImitationHooks {
     private static final String TAG = "PropImitationHooks";
     private static final boolean DEBUG = false;
 
-    private static final String[] sCertifiedProps =
-            Resources.getSystem().getStringArray(R.array.config_certifiedBuildProperties);
+    private static final String sCertifiedFp =
+            Resources.getSystem().getString(R.string.config_certifiedFingerprint);
 
     private static final String sStockFp =
             Resources.getSystem().getString(R.string.config_stockFingerprint);
@@ -47,27 +45,24 @@ public class PropImitationHooks {
     private static volatile boolean sIsGms = false;
     private static volatile boolean sIsFinsky = false;
 
-    public static void setProps(Context context) {
-        final String packageName = context.getPackageName();
-        final String processName = Application.getProcessName();
+    public static void setProps(Application app) {
+        final String packageName = app.getPackageName();
+        final String processName = app.getProcessName();
 
-        if (TextUtils.isEmpty(packageName) || TextUtils.isEmpty(processName)) {
-            Log.e(TAG, "Null package or process name");
+        if (packageName == null || processName == null) {
             return;
         }
 
         sIsGms = packageName.equals(PACKAGE_GMS) && processName.equals(PROCESS_GMS_UNSTABLE);
         sIsFinsky = packageName.equals(PACKAGE_FINSKY);
 
-        /* Set Certified Properties for GMSCore
+        /* Set Certified Fingerprint for GMSCore or Finsky
          * Set Stock Fingerprint for ARCore
          */
-        if (sCertifiedProps.length == 4 && sIsGms) {
+        if (!sCertifiedFp.isEmpty() && sIsGms) {
             dlog("Spoofing build for GMS");
-            setPropValue("DEVICE", sCertifiedProps[0]);
-            setPropValue("PRODUCT", sCertifiedProps[1]);
-            setPropValue("MODEL", sCertifiedProps[2]);
-            setPropValue("FINGERPRINT", sCertifiedProps[3]);
+            setPropValue("FINGERPRINT", sCertifiedFp);
+            setPropValue("MODEL", Build.MODEL + "\u200b");
         } else if (!sStockFp.isEmpty() && packageName.equals(PACKAGE_ARCORE)) {
             dlog("Setting stock fingerprint for: " + packageName);
             setPropValue("FINGERPRINT", sStockFp);
